@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   protect_from_forgery
 
   before_filter do
     headers['X-Frame-Options'] = 'SAMEORIGIN'
   end
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def after_sign_out_path_for(resource_or_scope)
     new_user_session_path
@@ -11,6 +14,15 @@ class ApplicationController < ActionController::Base
 
   def current_resource_owner
     User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+  end
+
+  private
+
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+
+    flash[:alert] = "You do not have permission to perform this action."
+    redirect_to(request.referrer || root_path)
   end
 
 end

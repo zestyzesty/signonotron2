@@ -2,18 +2,28 @@ class Admin::UsersController < ApplicationController
   include UserPermissionsControllerMethods
 
   before_filter :authenticate_user!
-
+  before_filter :load_user, except: :index
   helper_method :applications_and_permissions, :any_filter?
-
   respond_to :html
 
   def index
-    @users = @users.web_users
+    authorize User
+
+    @users = policy_scope(User)
     filter_users if any_filter?
     paginate_users
   end
 
+  def edit
+    authorize @user
+  end
+
   def update
+    authorize @user
+    if params[:user][:organisation_id].present?
+      authorize Organisation.find(params[:user][:organisation_id]), :can_assign?
+    end
+
     email_before = @user.email
     if @user.update_attributes(translate_faux_signin_permission(params[:user]), as: current_user.role.to_sym)
       @user.permissions.reload
@@ -49,7 +59,16 @@ class Admin::UsersController < ApplicationController
     redirect_to edit_admin_user_path(@user)
   end
 
+  def event_logs
+    authorize @user
+    @logs = @user.event_logs.limit(100) if @user
+  end
+
 private
+
+  def load_user
+    @user = User.find(params[:id])
+  end
 
   def filter_users
     @users = @users.filter(params[:filter]) if params[:filter].present?

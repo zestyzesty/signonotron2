@@ -7,10 +7,13 @@ class Superadmin::AuthorisationsController < ApplicationController
   respond_to :html
 
   def new
+    authorize ApiUser
     @authorisation = @api_user.authorisations.build
   end
 
   def create
+    authorize ApiUser
+
     authorisation = @api_user.authorisations.build(expires_in: ApiUser::DEFAULT_TOKEN_LIFE)
     authorisation.application_id = params[:doorkeeper_access_token][:application_id]
 
@@ -28,6 +31,8 @@ class Superadmin::AuthorisationsController < ApplicationController
   end
 
   def revoke
+    authorize @api_user
+
     authorisation = @api_user.authorisations.find(params[:id])
     if authorisation.revoke
       if params[:regenerate]

@@ -43,8 +43,4 @@ class EventLog < ActiveRecord::Base
     EventLog.create(attributes)
   end
 
-  def self.for(user)
-    EventLog.order('created_at DESC').where(uid: user.uid)
-  end
-
 end
