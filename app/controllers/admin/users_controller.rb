@@ -61,7 +61,7 @@ class Admin::UsersController < ApplicationController
 
   def event_logs
     authorize @user
-    @logs = @user.event_logs.limit(100) if @user
+    @logs = @user.event_logs.page(params[:page]).per(100) if @user
   end
 
 private
