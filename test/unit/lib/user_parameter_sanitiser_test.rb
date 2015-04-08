@@ -4,7 +4,9 @@ class UserParameterSanitiserTest < ActiveSupport::TestCase
   context "with Plain Old Ruby Hash for params" do
     setup do
       permitted_params_by_role = { normal: [:name, :email] }
-      user_params = { name: "Anne", email: "anne@anne.com" }
+      @name = "Anne"
+      @email = "anne@anne.com"
+      user_params = { name: @name, email: @email }
 
       @sanitised_params = UserParameterSanitiser.new(
         user_params: user_params,
@@ -16,15 +18,20 @@ class UserParameterSanitiserTest < ActiveSupport::TestCase
     should "return permitted params object" do
       assert_instance_of ActionController::Parameters, @sanitised_params
       assert @sanitised_params.permitted?
+    end
+
+    should "preserve permitted params" do
+      assert_equal @name, @sanitised_params[:name]
+      assert_equal @email, @sanitised_params[:email]
     end
   end
 
   context "with ActionController params object" do
     setup do
       permitted_params_by_role = { normal: [:name, :email] }
-      user_params = ActionController::Parameters.new(
-        { name: "Bill", email: "bill@bill.com" }
-      )
+      @name = "Bill"
+      @email = "bill@bill.com"
+      user_params = ActionController::Parameters.new(name: @name, email: @email)
 
       @sanitised_params = UserParameterSanitiser.new(
         user_params: user_params,
@@ -36,6 +43,11 @@ class UserParameterSanitiserTest < ActiveSupport::TestCase
     should "return permitted params object" do
       assert_instance_of ActionController::Parameters, @sanitised_params
       assert @sanitised_params.permitted?
+    end
+
+    should "preserve permitted params" do
+      assert_equal @name, @sanitised_params[:name]
+      assert_equal @email, @sanitised_params[:email]
     end
   end
 
