@@ -58,12 +58,6 @@ class InvitationsController < Devise::InvitationsController
     users_path
   end
 
-  # TODO: remove this method when we're on a version of devise_invitable which
-  # no longer expects it to exist (v1.2.1 onwards)
-  def build_resource
-    self.resource = resource_class.new(resource_params)
-  end
-
   def resource_params
     sanitised_params = UserParameterSanitiser.new(
       user_params: unsanitised_user_params,
@@ -77,16 +71,8 @@ class InvitationsController < Devise::InvitationsController
     end
   end
 
-  # TODO: once we've upgraded Devise and DeviseInvitable, `resource_params`
-  # hopefully won't be being called for actions like `#new` anymore and we
-  # can change the following `params.fetch(:user)` to
-  # `params.require(:user)`. See
-  # https://github.com/scambra/devise_invitable/blob/v1.1.5/app/controllers/devise/invitations_controller.rb#L10
-  # and
-  # https://github.com/plataformatec/devise/blob/v2.2/app/controllers/devise_controller.rb#L99
-  # for details :)
   def unsanitised_user_params
-    params.fetch(:user, {})
+    params.require(:user)
   end
 
   # NOTE: `current_user` doesn't exist for `#edit` and `#update` actions as
