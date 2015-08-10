@@ -1,18 +1,28 @@
 <% content_for :title, "Dashboard" %>
 <div class="page-title">
-  <h1>Welcome to GOV.UK</h1>
+  <h1>Dashboard</h1>
 </div>
 <div class="well">
 <div class="row">
   <div class="col-md-4">
-  <h2 class="remove-top-margin">Your account</h2>
-  <ul>
-    <li><%= link_to "Change your email or passphrase", edit_email_or_passphrase_user_path(current_user) %></li>
-    <li><%= link_to "Sign out", destroy_user_session_path %></li>
-  </ul>
+  <h2 class="remove-top-margin add-bottom-margin">Your account</h2>
+  <div class="list-group remove-bottom-margin">
+    <div class="list-group-item">
+      <%= link_to "Change your email or passphrase", edit_email_or_passphrase_user_path(current_user) %>
+    </div>
+    <div class="list-group-item">
+      <a href="#">Setup two factor authentication</a>
+    </div>
+    <div class="list-group-item">
+      <a href="#">Account activity</a>
+    </div>
+    <div class="list-group-item">
+      <%= link_to "Sign out", destroy_user_session_path %>
+    </div>
+  </div>
   </div>
   <div class="col-md-8">
-  <h2 class="remove-top-margin add-bottom-margin">Your Applications</h2>
+  <h2 class="remove-top-margin add-bottom-margin">Your applications</h2>
   <% if @applications_and_permissions.any? %>
     <div class="list-group remove-bottom-margin">
       <% @applications_and_permissions.each do |application, permissions| %>
@@ -26,7 +36,7 @@
           <% end %>
           <% if permissions.any? %>
             <% if application.description.present? %>&bull; <% end %>
-            Roles: <em><%= current_user.permissions_for(application).map(&:humanize).to_sentence %></em>
+            Permissions: <%= current_user.permissions_for(application).map(&:humanize).to_sentence %>
           <% end %>
           </div>
         </div>
