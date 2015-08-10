@@ -52,5 +52,10 @@ Signonotron2::Application.routes.draw do
   # compatibility with Sign-on-o-tron 1
   post "oauth/access_token" => "doorkeeper/tokens#create"
 
+  get '/two-factor-auth'   => 'prototype#two_factor_auth'
+  get '/two-factor-setup'  => 'prototype#two_factor_setup'
+  get '/two-factor-manage' => 'prototype#two_factor_manage'
+  get '/two-factor-prompt' => 'prototype#two_factor_prompt'
+
   root to: 'root#index'
 end
