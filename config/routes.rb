@@ -57,6 +57,7 @@ Signonotron2::Application.routes.draw do
   get '/two-factor-manage' => 'prototype#two_factor_manage'
   get '/two-factor-prompt' => 'prototype#two_factor_prompt'
   get '/new-sign-in'       => 'prototype#sign_in'
+  get '/new-sign-in-on'    => 'prototype#sign_in_on'
 
   root to: 'root#index'
 end

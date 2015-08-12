@@ -1,1 +1,49 @@
-<h1>Setup two factor authentication</h1>
+<h1 class="add-big-bottom-margin">Setup 2-step verification</h1>
+<div class="panel panel-default" style="max-width: 700px">
+  <div class="panel-body">
+    <p class="lead">2-step verification adds another layer of security to your account.</p>
+    <hr />
+
+    <h3>1. Get an authentication app</h3>
+    <p>Download a recommended authentication app to your phone.</p>
+    <ul>
+      <li>
+        <h4 class="remove-bottom-margin"><a href="#">Google Authenticator</a></h4>
+        <span class="text-muted">iOS, Android, Blackberry</span>
+      </li>
+      <li>
+        <h4 class="remove-bottom-margin"><a href="#">Duo Mobile</a></h4>
+        <span class="text-muted">iOS, Android</span>
+      </li>
+      <li>
+        <h4 class="remove-bottom-margin"><a href="#">Windows Phone Authenticator</a></h4>
+      </li>
+    </ul>
+    <hr />
+
+    <h3>2. Setup the app on your phone</h3>
+    <div class="row add-top-margin">
+      <div class="col-md-8"><p>Open your 2-step verification app and add Sign on by scanning the QR code.</p>
+      <p><a href="#">Can’t scan the QR code?</a></p></div>
+      <div class="col-md-3"><%= image_tag("qr.png", width: 180) %></div>
+    </div>
+    <hr />
+
+    <h3>3. Enter your authentication code</h3>
+    <div class="well remove-bottom-margin add-top-margin">
+      <div class="form-group">
+        <label>Authentication code</label>
+        <input type="text" class="form-control input-md-4 input-lg" placeholder="Enter 6 digit code"/>
+      </div>
+      <div class="form-group">
+        <label>Name your device</label>
+        <input type="text" class="form-control input-md-4 input-lg" placeholder="eg Phone (work)"/>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <a href="/two-factor-manage" class="btn btn-lg btn-success">Enable 2-step verification</a>
+    <a href="/" class="btn btn-lg btn-default add-left-margin">Cancel</a>
+  </div>
+</div>
+<div style="height: 400px"></div>
