@@ -56,6 +56,7 @@ Signonotron2::Application.routes.draw do
   get '/two-factor-setup'  => 'prototype#two_factor_setup'
   get '/two-factor-manage' => 'prototype#two_factor_manage'
   get '/two-factor-prompt' => 'prototype#two_factor_prompt'
+  get '/two-factor-save-codes'    => 'prototype#two_factor_save_codes'
   get '/new-sign-in'       => 'prototype#sign_in'
   get '/new-sign-in-on'    => 'prototype#sign_in_on'
 
