@@ -6,8 +6,8 @@ gem 'kaminari', '~> 0.16.3'
 gem 'bootstrap-kaminari-views', '0.0.5'
 
 gem 'alphabetical_paginate', '2.2.3'
-gem 'mysql2', '0.3.20'
 gem 'govuk_admin_template', '3.0.0'
+gem 'pg'
 
 gem 'airbrake', '3.1.15'
 gem 'plek', '1.7.0'
