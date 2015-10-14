@@ -23,3 +23,6 @@
 # Simplecov
 coverage/*
 test/reports/*
+
+# Local configuration
+/config/database.yml
