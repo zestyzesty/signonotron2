@@ -45,6 +45,10 @@ gem 'sass-rails', '~> 5.0.3'
 
 gem 'uglifier', '2.7.1'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development do
   gem 'quiet_assets', '1.0.2'
   gem 'better_errors', '2.1.1'
